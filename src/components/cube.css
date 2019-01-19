@@ -1,0 +1,7 @@
+.mainCube {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #8767AB;
+    display: inline-block;
+    margin-right: 2px;
+}
