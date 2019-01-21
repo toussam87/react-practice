@@ -5,3 +5,7 @@
     display: inline-block;
     margin-right: 2px;
 }
+
+.mainCube.filled {
+    background-color: #8767AB;
+}
