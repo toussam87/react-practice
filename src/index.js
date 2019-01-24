@@ -15,6 +15,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.fillCube(0, this.state.val);
+        this.changeCubeFilled();
     }
 
     fillCube(min, max) {
@@ -25,26 +26,43 @@ class App extends React.Component {
     renderCube() {
         const numberOfCubes = [];
         for (let i = 0; i < this.state.val; i++) {
-            numberOfCubes.push(<Cube key={i} dataId={i} />) ;
+            numberOfCubes.push(<Cube key={i} dataId={i} onClick={this.changeCubeFilled} />) ;
         }
         return numberOfCubes;
+        console.log(this.state.currentFilledCube);
     }
 
     setFilledCube() {
         var selectedCube = document.querySelector('[data-id="' + this.state.currentFilledCube + '"]');
-        // console.log("cube", selectedCube);
         if (selectedCube) {
             selectedCube.classList.add('filled');
         }
     }
 
-    render() {
+    changeCubeFilled() {
+        var allCubes = document.querySelectorAll(".mainCube");
+        // var filledCube = document.querySelector(".mainCube.filled");
+        var maxValue = this.state.val;
+
         console.log(this.state.currentFilledCube);
+        // console.log(filledCube);
+
+        for (let i = 0; i < allCubes.length; i++) {
+            allCubes[i].addEventListener("click", function() {
+                
+                var newFilledCube = Math.floor(Math.random() * Math.floor(maxValue));
+                this.setState({currentFilledCube: newFilledCube});
+            }.bind(this));
+        }
+        
+    }
+
+    render() {
         this.setFilledCube();
+        // this.changeCubeFilled();
         return (
             <div className="containerDiv" >
                 {this.renderCube()}
-                {/* {this.setFilledCube()} */}
             </div>
         );
     }
