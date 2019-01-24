@@ -19,8 +19,8 @@ class App extends React.Component {
     }
 
     fillCube(min, max) {
-        var newFilledCube = Math.floor(Math.random() * Math.floor(max));
-        this.setState({currentFilledCube: newFilledCube});
+        var filledCube = Math.floor(Math.random() * Math.floor(max));
+        this.setState({currentFilledCube: filledCube});
     }
 
     renderCube() {
@@ -41,15 +41,14 @@ class App extends React.Component {
 
     changeCubeFilled() {
         var allCubes = document.querySelectorAll(".mainCube");
-        // var filledCube = document.querySelector(".mainCube.filled");
         var maxValue = this.state.val;
 
         console.log(this.state.currentFilledCube);
-        // console.log(filledCube);
+        
 
         for (let i = 0; i < allCubes.length; i++) {
             allCubes[i].addEventListener("click", function() {
-                
+                (document.querySelector(".mainCube.filled")).classList.remove("filled");
                 var newFilledCube = Math.floor(Math.random() * Math.floor(maxValue));
                 this.setState({currentFilledCube: newFilledCube});
             }.bind(this));
@@ -59,7 +58,6 @@ class App extends React.Component {
 
     render() {
         this.setFilledCube();
-        // this.changeCubeFilled();
         return (
             <div className="containerDiv" >
                 {this.renderCube()}
