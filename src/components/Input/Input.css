@@ -1,0 +1,8 @@
+.cubeLabel {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.cubeNumber {
+    border: 1px solid #ECDCE7;
+}

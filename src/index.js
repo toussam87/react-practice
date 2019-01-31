@@ -1,20 +1,23 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import Cube from "./components/Cube.js";
+import CubeInput from './components/Input/Input.js';
+import Cube from "./components/Cube/Cube.js";
 import Style from './index.css'
-import { isNullOrUndefined } from "util";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            val: 25,
-            currentFilledCube:  5,
-        }
+            val: '',
+            currentFilledCube:  0,
+        };
+
+        // this.setNumber = this.setNumber.bind(this);
     }
 
     componentDidMount() {
         this.fillCube(0, this.state.val);
+        this.setFilledCube();
         this.changeCubeFilled();
     }
 
@@ -29,7 +32,6 @@ class App extends React.Component {
             numberOfCubes.push(<Cube key={i} dataId={i} onClick={this.changeCubeFilled} />) ;
         }
         return numberOfCubes;
-        console.log(this.state.currentFilledCube);
     }
 
     setFilledCube() {
@@ -41,26 +43,53 @@ class App extends React.Component {
 
     changeCubeFilled() {
         var allCubes = document.querySelectorAll(".mainCube");
-        var maxValue = this.state.val;
-
-        console.log(this.state.currentFilledCube);
-        
 
         for (let i = 0; i < allCubes.length; i++) {
             allCubes[i].addEventListener("click", function() {
                 (document.querySelector(".mainCube.filled")).classList.remove("filled");
-                var newFilledCube = Math.floor(Math.random() * Math.floor(maxValue));
-                this.setState({currentFilledCube: newFilledCube});
+                
+                this.fillCube(0, this.state.val);
+                this.setFilledCube();
             }.bind(this));
         }
+    }
+
+    setNumber(event) {
+        if((event.target.value % 5 === 0) ) {
+            console.log("yes");
+            this.setState({
+                val: event.target.value,
+            });
+            // console.log(thi)
+            // console.log(event.target.value);
+            // console.log(this.state.val)
+            
+            // {this.renderCube()}
+            // console.log("this this this")
         
+        } else {
+            console.log("nothing yet")
+        }
+    }
+
+    inputCube() {
+        if(this.state.val === '' || this.state.val === 0) {
+            return (
+                <form>
+                <label className="cubeLabel" htmlFor="name">Enter a number <br /> (any number that is multiples by 5)
+                    <input type="text" className="cubeNumber" onChange={this.setNumber}/>
+                </label>    
+            </form>
+            )
+        }
     }
 
     render() {
-        this.setFilledCube();
         return (
             <div className="containerDiv" >
-                {this.renderCube()}
+                {/* {this.renderCube()}  */}
+                {/* <CubeInput  /> */}
+                {this.inputCube()}
             </div>
         );
     }
