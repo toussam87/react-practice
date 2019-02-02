@@ -8,17 +8,15 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            val: '',
+            val: 0,
             currentFilledCube:  0,
         };
-
-        // this.setNumber = this.setNumber.bind(this);
     }
 
     componentDidMount() {
-        this.fillCube(0, this.state.val);
-        this.setFilledCube();
-        this.changeCubeFilled();
+        // this.fillCube(0, this.state.val);
+        // this.setFilledCube();
+        // this.changeCubeFilled();
     }
 
     fillCube(min, max) {
@@ -56,39 +54,28 @@ class App extends React.Component {
 
     setNumber(event) {
         if((event.target.value % 5 === 0) ) {
-            console.log("yes");
             this.setState({
                 val: event.target.value,
             });
-            // console.log(thi)
-            // console.log(event.target.value);
-            // console.log(this.state.val)
-            
-            // {this.renderCube()}
-            // console.log("this this this")
-        
         } else {
-            console.log("nothing yet")
+            this.inputCube();
         }
     }
 
     inputCube() {
-        if(this.state.val === '' || this.state.val === 0) {
-            return (
-                <form>
-                <label className="cubeLabel" htmlFor="name">Enter a number <br /> (any number that is multiples by 5)
-                    <input type="text" className="cubeNumber" onChange={this.setNumber}/>
-                </label>    
-            </form>
-            )
-        }
+        return (
+            <form>
+            <label className="cubeLabel" htmlFor="name">Enter a number <br /> (any number that is multiples by 5)
+                <input type="text" className="cubeNumber" onChange={this.setNumber.bind(this)}/>
+            </label>    
+        </form>
+        )
     }
 
     render() {
         return (
             <div className="containerDiv" >
-                {/* {this.renderCube()}  */}
-                {/* <CubeInput  /> */}
+                {this.renderCube()} 
                 {this.inputCube()}
             </div>
         );
